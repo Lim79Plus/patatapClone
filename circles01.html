@@ -10,19 +10,23 @@
     <script type="text/javascript" src="assets\js\lib\paper-full.js"></script>
     <script type="text/paperscript" canvas="myCanvas">
 
+        var circles = [];
         function onKeyDown(event) {
             var maxPoint = new Point(view.size.width, view.size.height);
             var randomPoint = Point.random();
             var point = maxPoint * randomPoint;
-            new Path.Circle(point, 10).fillColor = "orange";
+            var newCircle = new Path.Circle(point, 100)
+            newCircle.fillColor = "orange";
+            circles.push(newCircle);
         }
         
-        var animateCircle = new Path.Circle(new Point(300, 300), 100);
-        animateCircle.fillColor = "red";
-
         function onFrame(event){
-            animateCircle.fillColor.hue +=1;
-            animateCircle.scale(.9);
+            //in this case we can not declare i with let,
+            //because i valiable is passed the paper.js lib?
+            for (var i = 0; i < circles.length; i++) {
+                    circles[i].fillColor.hue +=1;
+                    circles[i].scale(.9);
+            }
         }
     </script>
 </head>
